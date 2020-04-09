@@ -7,7 +7,9 @@ func main() {
 
 	var hand deck
 	hand, cards = cards.deal(5)
-	hand.print()
+	// hand.print()
+	fmt.Println(hand.toString())
 	fmt.Println("----------")
-	cards.print()
+	// cards.print()
+	fmt.Println(cards.toString())
 }
