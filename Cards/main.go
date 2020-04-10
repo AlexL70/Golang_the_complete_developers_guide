@@ -1,13 +1,8 @@
 package main
 
-func main() {
-	cards := newDeck()
+import "fmt"
 
-	// var hand deck
-	// hand, cards = cards.deal(5)
-	// hand.print()
-	// fmt.Println(hand.toString())
-	// fmt.Println("----------")
-	cards.saveToFile("my_cards")
-	// fmt.Println(cards.toString())
+func main() {
+	cards := newDeckFromFile("my_cards")
+	fmt.Println(cards.toString())
 }
