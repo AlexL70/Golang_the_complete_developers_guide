@@ -13,5 +13,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(resp)
+	bs := make([]byte, 99999)
+	_, err = resp.Body.Read(bs)
+	if err != nil && err.Error() != "EOF" {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(string(bs))
 }
