@@ -14,18 +14,23 @@ func main() {
 		"http://amazon.com",
 	}
 
+	c := make(chan string)
+
 	for _, link := range links {
-		//	does not work as expected because main go routine exits before
-		//	child go routines finish
-		go checkLink(link)
+		go checkLink(link, c)
 	}
+
+	fmt.Println(<- c)
 }
 
-func checkLink(link string) {
+func checkLink(link string, c chan string) {
 	_, err := http.Get(link)
 	if err == nil {
 		fmt.Printf("%v site is up and running.\n", link)
-	} else {
-		fmt.Printf("%v site seems to be down.\n", link)
-	}
+		c <- "It's up."
+		return
+	} 
+	
+	fmt.Printf("%v site seems to be down.\n", link)
+	c <- "Might be down."
 }
