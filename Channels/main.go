@@ -15,15 +15,17 @@ func main() {
 	}
 
 	for _, link := range links {
-		if checkLink(link) {
-			fmt.Printf("%v site is up and running.\n", link)
-		} else {
-			fmt.Printf("%v site seems to be down.\n", link)
-		}
+		//	does not work as expected because main go routine exits before
+		//	child go routines finish
+		go checkLink(link)
 	}
 }
 
-func checkLink(link string) bool {
+func checkLink(link string) {
 	_, err := http.Get(link)
-	return err == nil
+	if err == nil {
+		fmt.Printf("%v site is up and running.\n", link)
+	} else {
+		fmt.Printf("%v site seems to be down.\n", link)
+	}
 }
